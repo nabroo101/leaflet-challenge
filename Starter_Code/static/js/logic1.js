@@ -17,8 +17,11 @@ let baseMaps = {
   "Street Map": street,
   "Topographic Map": topo,
 };
-
 let earthquakes = new L.layerGroup();
+let overlayMaps = {
+    Earthquakes: earthquakes
+};
+
 
 let myMap = L.map("map", {
     center: [
@@ -27,3 +30,9 @@ let myMap = L.map("map", {
     zoom: 5.0,
     layers: [street, earthquakes]
   });
+// creating toggel switch to change from diffrent map views
+L.control.layers(baseMaps, overlayMaps, {
+    collapsed: false
+  }).addTo(myMap);
+
+
