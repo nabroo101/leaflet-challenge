@@ -1,3 +1,4 @@
+//Logic1.js will contain codes to create and deploying map with layers
 // testting server
 console.log("Hello World");
 
