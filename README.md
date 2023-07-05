@@ -8,7 +8,6 @@ The United States Geological Survey (USGS) is a scientific agency that provides 
 
 This project presents a new set of tools that allow USGS to visualize their earthquake data. USGS collects a vast amount of data worldwide daily, and they needed a meaningful way of displaying it. This challenge was to develop a method to visualize USGS data that will allow them to better educate the public and other government organizations on issues facing our planet.
 
-## The Project
 
 ### Part 1: Earthquake Visualization
 
@@ -48,7 +47,7 @@ Please note that this project requires an internet connection to pull in the USG
 
 ## Author
 
-Mo Abou
+Mohamed Abouelkhier
 
 Github: [@nabroo101](https://github.com/nabroo101/leaflet-challenge)
 
