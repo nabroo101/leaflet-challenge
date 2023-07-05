@@ -89,7 +89,7 @@ d3.json(url).then(function (data) {
       layer.bindPopup(`
         <h3>Location: ${feature.properties.place}</h3>
         <hr>
-        <h3>Time: ${new Date(feature.properties.time)}</h3>
+        <h3>Date/Time: ${new Date(feature.properties.time)}</h3>
         <h3>Magnitude: ${feature.properties.mag}</h3>
         <h3>Depth: ${feature.geometry.coordinates[2]}</h3>
         `);
@@ -100,7 +100,7 @@ d3.json(url).then(function (data) {
   legend.onAdd = function (myMap) {
     let div = L.DomUtil.create("div", "info legend"),
       grades = [-10, 10, 30, 50, 70, 90];
-      labels = ["soft", "normal", "dc","dc","dcdc","dccdc" ];
+      labels = [];
 
     // loop through our density intervals and generate a label with a colored square for each interval
     //refrence : https://leafletjs.com/examples/choropleth/
