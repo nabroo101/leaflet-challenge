@@ -1,21 +1,24 @@
 // Testting server
 console.log("Hello World");
 
+//adding my attribution to both views street and topo
 // Create the base layers.
 let street = L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
   attribution:
-    '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+    '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors' +
+    "<br> Analyst: Mo Abou <a href=https://github.com/nabroo101/leaflet-challenge> Github<a/>",
 });
 
-let topo = L.tileLayer("https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png", {
+let Staellite = L.tileLayer("https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png", {
   attribution:
-     'Map data: &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    'Map data: &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors' +
+    "<br> Analyst: Mo Abou <a href=https://github.com/nabroo101/leaflet-challenge> Github<a/>",
 });
 
 // Create a baseMaps object.
 let baseMaps = {
   "Street Map": street,
-  "Topographic Map": topo,
+  "Staellite": Staellite,
 };
 let earthquakes = new L.layerGroup();
 
@@ -49,21 +52,26 @@ d3.json(url).then(function (data) {
     return magnitude * 4;
   }
   function markerColor(depth) {
-    return (
-      depth > 1000 ? '#d73027' :
-        depth > 500 ? '#f46d43' :
-          depth > 200 ? '#fdae61' :
-            depth > 100 ? '#fee08b' :
-              depth > 50 ? '#d9ef8b' :
-                depth > 20 ? '#a6d96a' :
-                  depth > 10 ? '#66bd63' :
-                    '#1a9850'
-    );
+    return depth > 90
+      ? "#d73027"
+      : depth > 90
+      ? "#f46d43"
+      : depth > 70
+      ? "#fdae61"
+      : depth > 50
+      ? "#fee391"
+      : depth > 30
+      ? "#d9ef8b"
+      : depth > 10
+      ? "#a6d96a"
+      : depth > -10
+      ? "#006d2c"
+      : "#1a9850";
   }
 
   function styleInfo(feature) {
     return {
-      radius: markerSize(feature.properties.mag),//calling the marker size function
+      radius: markerSize(feature.properties.mag), //calling the marker size function
       fillColor: markerColor(feature.geometry.coordinates[2]),
       color: "green",
       weight: 1,
@@ -85,6 +93,28 @@ d3.json(url).then(function (data) {
         <h3>Magnitude: ${feature.properties.mag}</h3>
         <h3>Depth: ${feature.geometry.coordinates[2]}</h3>
         `);
-    }
+    },
   }).addTo(earthquakes);
+  let legend = L.control({ position: "bottomright" });
+
+  legend.onAdd = function (myMap) {
+    let div = L.DomUtil.create("div", "info legend"),
+      grades = [-10, 10, 30, 50, 70, 90];
+      labels = ["soft", "normal", "dc","dc","dcdc","dccdc" ];
+
+    // loop through our density intervals and generate a label with a colored square for each interval
+    //refrence : https://leafletjs.com/examples/choropleth/
+    for (let i = 0; i < grades.length; i++) {
+      div.innerHTML +=
+        '<i style="background:' +
+        markerColor(grades[i] + 1) +
+        '"></i> ' +
+        grades[i] +
+        (grades[i + 1] ? "&ndash;" + grades[i + 1] + "<br>" : "+");
+    }
+
+    return div;
+  };
+
+  legend.addTo(myMap);
 });
