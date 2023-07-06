@@ -10,10 +10,13 @@ html {
 }
 /* legendStyling */
 .legend {
+  background-color: white;
+  padding: 5px;
   line-height: 18px;
   color: #555;
 }
 .legend i {
+  
   width: 18px;
   height: 18px;
   float: left;
